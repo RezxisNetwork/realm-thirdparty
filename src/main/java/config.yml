@@ -1,0 +1,4 @@
+token: "token"
+visible: true
+icon: "EMERALD_BLOCK"
+gateway: "ws://api.rezxis.net:2020"
