@@ -1,4 +1,10 @@
-token: "token"
-visible: true
-icon: "EMERALD_BLOCK"
+#変更しないでください。
 gateway: "ws://api.rezxis.net:2020"
+#/thirdparty statusで出るkeyを入れてください。
+token: "token"
+#サーバーメニューに表示、非表示の指定です。
+visible: true
+#サーバーメニューに使うiconを指定できます。
+icon: "EMERALD_BLOCK"
+#投票されたときに実行されます。
+vote: "/tell [player] thanks you"

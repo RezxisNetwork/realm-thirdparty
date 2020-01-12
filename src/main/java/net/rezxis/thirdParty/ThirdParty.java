@@ -1,12 +1,17 @@
 package net.rezxis.thirdParty;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -64,6 +69,7 @@ public class ThirdParty extends JavaPlugin {
 				instance.client.close();
 			}
 		}));
+		getServer().getMessenger().registerIncomingPluginChannel(this,"rezxis",new PMessageListener());
 	}
 	
 	public void onDisable() {
@@ -78,6 +84,29 @@ public class ThirdParty extends JavaPlugin {
 		if (cfg != null)
 			this.reloadConfig();
 		cfg = this.getConfig();
+	}
+	
+	private class PMessageListener implements PluginMessageListener {
+
+		@Override
+		public void onPluginMessageReceived(String ch, Player player, byte[] body) {
+			if (ch.equalsIgnoreCase("rezxis")) {
+				DataInputStream in = new DataInputStream(new ByteArrayInputStream(body));
+				String arg0 = null;
+				String arg1 = null;
+				try {
+					arg0 = in.readUTF();
+					arg1 = in.readUTF();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				if (arg0.equalsIgnoreCase("vote")) {
+					if (!cfg.getString("vote").isEmpty()) {
+						Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), cfg.getString("vote").replace("[player]", arg1));
+					}
+				}
+			}
+		}
 	}
 	
 	private class WSClient extends WebSocketClient {
