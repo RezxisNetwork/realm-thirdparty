@@ -8,19 +8,19 @@ import net.rezxis.thirdParty.packet.TServerUpdatePacket;
 
 public class ThirdPartyAPI {
 
-	public void updateMotd(String motd) {
+	public static void updateMotd(String motd) {
 		post(null, motd, null);
 	}
 	
-	public void updateName(String name) {
+	public static void updateName(String name) {
 		post(name, null, null);
 	}
 	
-	public void updateIcon(Material mat) {
-		post(null, null, mat.name());
+	public static void updateIcon(Material icon) {
+		post(null, null, icon.name());
 	}
 	
-	private void post(String name, String motd, String icon) {
+	public static void post(String name, String motd, String icon) {
 		if (ThirdParty.getInstance().getClient().isClosed()) {
 			return;
 		}
