@@ -17,6 +17,7 @@ import org.java_websocket.handshake.ServerHandshake;
 
 import com.google.gson.Gson;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.md_5.bungee.api.ChatColor;
@@ -27,11 +28,14 @@ import net.rezxis.thirdParty.packet.TServerStoppedPacket;
 
 public class ThirdParty extends JavaPlugin {
 
-	public static ThirdParty instance;
+	@Getter(AccessLevel.PACKAGE)
+	private static ThirdParty instance;
 	private static final Gson gson = new Gson();
+	@Getter(AccessLevel.PACKAGE)
 	private FileConfiguration cfg;
+	@Getter(AccessLevel.PACKAGE)
 	private WSClient client;
-	private double version = 0.2;
+	private double version = 0.3;
 	private boolean authed = false;
 	
 	public void onEnable() {
@@ -109,7 +113,7 @@ public class ThirdParty extends JavaPlugin {
 		}
 	}
 	
-	private class WSClient extends WebSocketClient {
+	class WSClient extends WebSocketClient {
 
 		@Getter@Setter
 		private boolean stop;
