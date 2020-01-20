@@ -58,10 +58,9 @@
   	</dependency>
   	<dependency>
     	<artifactId>spigot</artifactId>
-    	<groupId>spigot</groupId>
+    	<groupId>rezxis</groupId>
     	<version>0</version>
-    	<scope>system</scope>
-    	<systemPath>${basedir}/../realm-gameplugin/spigot.jar</systemPath>
+    	<scope>provided</scope>
 	</dependency>
   </dependencies>
 </project>
