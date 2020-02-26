@@ -57,6 +57,7 @@ public class ThirdParty extends JavaPlugin {
 		}
 		if (disable) {
 			getServer().getPluginManager().disablePlugin(this);
+			return;
 		}
 		try {
 			client = new WSClient(new URI(cfg.getString("gateway")));
@@ -104,11 +105,9 @@ public class ThirdParty extends JavaPlugin {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				if (arg0.equalsIgnoreCase("vote")) {
-					if (!cfg.getString("vote").isEmpty()) {
+				if (arg0.equalsIgnoreCase("vote"))
+					if (!cfg.getString("vote").isEmpty())
 						Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), cfg.getString("vote").replace("[player]", arg1));
-					}
-				}
 			}
 		}
 	}
