@@ -153,6 +153,7 @@ public class ThirdParty extends JavaPlugin {
 							}
 						}
 						if (ss != null) {
+							System.out.println(ss);
 							Socket s = new Socket(InetAddress.getByName(this.uuri.getHost()), uuri.getPort()
 									,InetAddress.getByName(ss),0);
 								this.setSocket(s);
