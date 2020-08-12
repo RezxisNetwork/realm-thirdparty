@@ -8,3 +8,5 @@ visible: true
 icon: "EMERALD_BLOCK"
 #投票されたときに実行されます。
 vote: "/tell [player] thanks you"
+#指示されたときのみ
+laddr: ""

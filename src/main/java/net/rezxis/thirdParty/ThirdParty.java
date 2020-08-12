@@ -3,8 +3,15 @@ package net.rezxis.thirdParty;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketImpl;
+import java.net.SocketImplFactory;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import javax.net.SocketFactory;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -60,11 +67,12 @@ public class ThirdParty extends JavaPlugin {
 			return;
 		}
 		try {
-			client = new WSClient(new URI(cfg.getString("gateway")));
-		} catch (URISyntaxException e) {
+			client = new WSClient(new URI(cfg.getString("gateway")), cfg.getString("laddr"));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		System.out.println("connecting to "+cfg.getString("gateway"));
+		
 		client.connect();
 		Runtime.getRuntime().addShutdownHook(new Thread(()-> {
 			instance.client.setStop(true);
@@ -116,9 +124,29 @@ public class ThirdParty extends JavaPlugin {
 
 		@Getter@Setter
 		private boolean stop;
+		private URI uuri;
+		private String laddr;
 		
-		public WSClient(URI uri) {
+		public WSClient(URI uri, String laddr) throws IOException {
 			super(uri);
+			uuri = uri;
+			this.laddr = laddr;
+		}
+		
+		@Override
+		public void run() {
+			try {
+				if (laddr != null) {
+					if (!laddr.isEmpty()) {
+						Socket s = new Socket(InetAddress.getByName(this.uuri.getHost()), uuri.getPort()
+								,InetAddress.getByName(laddr),0);
+							this.setSocket(s);
+					}
+				}
+				super.run();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 
 		@Override
@@ -155,7 +183,7 @@ public class ThirdParty extends JavaPlugin {
 				Bukkit.getScheduler().runTaskLaterAsynchronously(instance, new Runnable() {
 					public void run() {
 						try {
-							instance.client = new WSClient(new URI(cfg.getString("gateway")));
+							instance.client = new WSClient(new URI(cfg.getString("gateway")), cfg.getString("laddr"));
 							instance.client.connect();
 						} catch (Exception e) {
 							System.out.println("failed to connect.");
