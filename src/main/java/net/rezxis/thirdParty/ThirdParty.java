@@ -5,11 +5,13 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.SocketImpl;
 import java.net.SocketImplFactory;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Enumeration;
 
 import javax.net.SocketFactory;
 
@@ -138,9 +140,23 @@ public class ThirdParty extends JavaPlugin {
 			try {
 				if (laddr != null) {
 					if (!laddr.isEmpty()) {
-						Socket s = new Socket(InetAddress.getByName(this.uuri.getHost()), uuri.getPort()
-								,InetAddress.getByName(laddr),0);
-							this.setSocket(s);
+						String ss = null;
+						Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
+						while(nis.hasMoreElements()) {
+							NetworkInterface ni = nis.nextElement();
+							Enumeration<InetAddress> iaddrs = ni.getInetAddresses();
+							while (iaddrs.hasMoreElements()) {
+								InetAddress iaddr = iaddrs.nextElement();
+								if (iaddr.getHostAddress().startsWith(laddr)) {
+									ss = iaddr.getHostAddress();
+								}
+							}
+						}
+						if (ss != null) {
+							Socket s = new Socket(InetAddress.getByName(this.uuri.getHost()), uuri.getPort()
+									,InetAddress.getByName(ss),0);
+								this.setSocket(s);
+						}
 					}
 				}
 				super.run();
