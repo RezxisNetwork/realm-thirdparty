@@ -4,16 +4,10 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
-import java.net.SocketImpl;
-import java.net.SocketImplFactory;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Enumeration;
-
-import javax.net.SocketFactory;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
