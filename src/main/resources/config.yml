@@ -1,5 +1,5 @@
 #変更しないでください。
-gateway: "ws://api.rezxis.net:2020"
+gateway: "ws://vpn.rezxis.net:2020"
 #/thirdparty statusで出るkeyを入れてください。
 token: "token"
 #サーバーメニューに表示、非表示の指定です。
