@@ -88,10 +88,12 @@ public class ThirdParty extends JavaPlugin {
 	}
 	
 	public void onDisable() {
-		if (authed) 
-			client.send(gson.toJson(new TServerStoppedPacket(cfg.getString("token"))));
-		client.setStop(true);
-		client.close();
+		if (client != null) {
+			if (authed) 
+				client.send(gson.toJson(new TServerStoppedPacket(cfg.getString("token"))));
+			client.setStop(true);
+			client.close();
+		}
 	}
 	
 	private void loadConfig() {
