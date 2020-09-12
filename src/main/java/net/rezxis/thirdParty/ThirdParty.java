@@ -38,7 +38,7 @@ public class ThirdParty extends JavaPlugin {
 	private FileConfiguration cfg;
 	@Getter(AccessLevel.PACKAGE)
 	private WSClient client;
-	private double version = 0.4;
+	private double version = 0.5;
 	private boolean authed = false;
 	
 	public void onEnable() {
@@ -78,7 +78,7 @@ public class ThirdParty extends JavaPlugin {
 				instance.client.close();
 			}
 		}));
-		getServer().getMessenger().registerIncomingPluginChannel(this,"rezxis",new PMessageListener());
+		getServer().getMessenger().registerIncomingPluginChannel(this,"rezxis:rezxis",new PMessageListener());
 	}
 	
 	public void onDisable() {
@@ -101,7 +101,7 @@ public class ThirdParty extends JavaPlugin {
 
 		@Override
 		public void onPluginMessageReceived(String ch, Player player, byte[] body) {
-			if (ch.equalsIgnoreCase("rezxis")) {
+			if (ch.equalsIgnoreCase("rezxis:rezxis")) {
 				DataInputStream in = new DataInputStream(new ByteArrayInputStream(body));
 				String arg0 = null;
 				String arg1 = null;
