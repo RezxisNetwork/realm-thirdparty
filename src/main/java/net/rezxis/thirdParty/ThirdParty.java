@@ -165,7 +165,7 @@ public class ThirdParty extends JavaPlugin {
 		@Override
 		public void onOpen(ServerHandshake handshakedata) {
 			System.out.println("Connection to Rezxis was established!");
-			this.send(gson.toJson(new TAuthServerPacket(cfg.getString("token"), version, Bukkit.getServerName(), Bukkit.getMotd(), Bukkit.getPort(), Bukkit.getMaxPlayers(), Bukkit.getOnlinePlayers().size(), cfg.getBoolean("visible"), Material.valueOf(cfg.getString("icon")).name())));
+			this.send(gson.toJson(new TAuthServerPacket(cfg.getString("token"), version, instance.getServer().getServerName(), instance.getServer().getMotd(), instance.getServer().getPort(), instance.getServer().getMaxPlayers(), instance.getServer().getOnlinePlayers().size(), cfg.getBoolean("visible"), Material.valueOf(cfg.getString("icon")).name())));
 		}
 
 		@Override
@@ -182,7 +182,7 @@ public class ThirdParty extends JavaPlugin {
 				} else {
 					System.out.println("Authentication was successful.");
 					System.out.println("Port : "+Bukkit.getPort());
-					System.out.println("Max players : "+Bukkit.getMaxPlayers());
+					System.out.println("Max players : "+instance.getServer().getMaxPlayers());
 					authed = true;
 				}
 				System.out.println("==============================");
