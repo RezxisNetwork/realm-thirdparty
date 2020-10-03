@@ -38,7 +38,7 @@ public class ThirdParty extends JavaPlugin {
 	private FileConfiguration cfg;
 	@Getter(AccessLevel.PACKAGE)
 	private WSClient client;
-	private double version = 0.5;
+	private double version = 0.6;
 	private boolean authed = false;
 	
 	public void onEnable() {
