@@ -2,6 +2,8 @@
 gateway: "ws://vpn.rezxis.net:2020"
 #/thirdparty statusで出るkeyを入れてください。
 token: "token"
+#サーバー名(realmメニューに表示される)
+servername: "thirdparty-server"
 #サーバーメニューに表示、非表示の指定です。
 visible: true
 #サーバーメニューに使うiconを指定できます。
